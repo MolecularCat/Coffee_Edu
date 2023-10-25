@@ -8,11 +8,15 @@ namespace Coffee.Controllers.Admin
     {
         public IActionResult Index()
         {
+            bool isAdmin = User.IsInRole("admin");
+
             return View();
         }
 
         public IActionResult Users()
         {
+            var ListUsers = new List<string>();
+
             return View();
         }
     }
