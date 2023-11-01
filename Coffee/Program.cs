@@ -1,5 +1,6 @@
 using Coffee.Data;
 using Coffee.Models;
+using Coffee.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,9 @@ namespace Coffee
             builder.Services.AddControllersWithViews();
             //builder.Services.AddRazorPages();
 
+
+            builder.Services.AddTransient<NewsRepository>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -45,10 +49,8 @@ namespace Coffee
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}"
-                );
-
+               name: "default",
+               pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();
