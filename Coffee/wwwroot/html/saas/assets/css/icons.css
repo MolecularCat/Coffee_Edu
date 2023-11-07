@@ -886,17 +886,20 @@ File: Icons Css File
 
 /* '' */
 .uil-calendar-alt:before {
-  content: "\e8a8";
+    content: "\eb31";
+    /*e8a8*/
 }
 
 /* '' */
 .uil-calendar-slash:before {
-  content: "\e8a9";
+    content: "\eb31";
+    /*e8a9*/
 }
 
 /* '' */
 .uil-calender:before {
-  content: "\e8aa";
+    content: "\eb31";
+    /*e8aa*/
 }
 
 /* '' */
