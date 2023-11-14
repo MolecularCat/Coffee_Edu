@@ -5,11 +5,13 @@
 <div class="text-center">
     <h1 class="display-4">News</h1>
 
+    <a href="/admin/news/createnews" role="button" class="btn btn-primary rounded-pill">Create News</a>
+
     <ul>
         @foreach (var item in Model)
         {
             <li>
-                <span>@item.Title</span> <span>@item.Text</span> <span>@item.Date.ToString("yyyy.MM.dd HH:mm")</span> <span>@item.AuthorId</span> <span>@item.CreateDate.ToString("yyyy.MM.dd HH:mm")</span> <span>@item.IsActive</span>
+                <span>@item.Title</span> <span>@item.Text</span> <span>@item.Date.ToString("dd.MM.yyyy HH:mm")</span> <span>@item.AuthorId</span> <span>@item.CreateDate.ToString("yyyy.MM.dd HH:mm")</span> <span>@item.IsActive</span>
             </li>
         }
     </ul>
