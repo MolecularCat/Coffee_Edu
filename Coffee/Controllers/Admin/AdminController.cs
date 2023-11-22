@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Coffee.Models.Entities;
 using System.Security.Claims;
+using Coffee.Models;
+using SQLitePCL;
+using System.Security.Cryptography.Xml;
 
 namespace Coffee.Controllers
 {
@@ -38,14 +41,14 @@ namespace Coffee.Controllers
 
         [Route("/admin/news/createnews")]
         [HttpGet]
-        public async Task<IActionResult> CreateNews()
+        public async Task<ActionResult> CreateNews()
         {
             return View();
         }
 
         [Route("/admin/news/createnews")]
         [HttpPost]
-        public async Task<IActionResult> CreateNewNews(News news)
+        public async Task<ActionResult> CreateNewNews(News news)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -57,6 +60,42 @@ namespace Coffee.Controllers
 
                 var result = await _newsRepository.CreateNewNewsAsync(news);
             }
+
+            return Redirect("/Admin/News");
+        }
+
+        [Route("/admin/news/editnews/{id}")]
+        [HttpGet]
+        public async Task<ActionResult> EditNews(int id)
+        {
+            var news = await _newsRepository.GetOneNewsAsync(id);
+
+            return View(news);
+        }
+
+        [Route("/admin/news/editnews/{id}")]
+        [HttpPost]
+        public async Task<ActionResult> DoneEditNews(News news)
+        {
+            
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            news.AuthorId = userId;
+
+            news.Date = DateTime.SpecifyKind(news.Date, DateTimeKind.Utc);
+            news.CreateDate = DateTime.SpecifyKind(news.CreateDate, DateTimeKind.Utc);
+
+            var result = await _newsRepository.UpdateEditNewsAsync(news);
+
+            return Redirect("/Admin/News");
+        }
+
+        [Route("/admin/news/deletenews/{id}")]
+        [HttpGet]
+        public async Task<ActionResult> DeleteNews(int id)
+        {
+            await _newsRepository.GetDeleteNewsAsync(id);
 
             return Redirect("/Admin/News");
         }

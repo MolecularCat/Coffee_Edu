@@ -7,12 +7,29 @@
 
     <a href="/admin/news/createnews" role="button" class="btn btn-primary rounded-pill">Create News</a>
 
-    <ul>
+    <table cellpadding="10">
+        <tr>
+            <th>Title</th>
+            <th>Text</th>
+            <th>Publication date</th>
+            <th>AuthorId</th>
+            <th>Create date</th>
+            <th>Is active</th>
+            <th></th>
+            <th></th>
+        </tr>
         @foreach (var item in Model)
         {
-            <li>
-                <span>@item.Title</span> <span>@item.Text</span> <span>@item.Date.ToString("dd.MM.yyyy HH:mm")</span> <span>@item.AuthorId</span> <span>@item.CreateDate.ToString("yyyy.MM.dd HH:mm")</span> <span>@item.IsActive</span>
-            </li>
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Text</td>
+                <td>@item.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@item.AuthorId</td>
+                <td>@item.CreateDate.ToString("yyyy.MM.dd HH:mm")</td>
+                <td>@item.IsActive</td>
+                <td><a href="/admin/news/editnews/@item.Id">edit</a></td>
+                <td><a href="/admin/news/deletenews/@item.Id">delete</a></td>
+            </tr>
         }
-    </ul>
+    </table>
 </div>
