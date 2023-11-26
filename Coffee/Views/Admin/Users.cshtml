@@ -4,4 +4,24 @@
 
 <div class="text-center">
     <h1 class="display-4">Users</h1>
+
+    <table cellpadding="10">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Registration date</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>@item.Created.ToString("dd.MM.yyyy HH:mm")</td>
+                <td><a href="">block</a></td>
+                <td><a href="">unblock</a></td>
+            </tr>
+        }
+    </table>
 </div>

@@ -1,38 +1,37 @@
-﻿using Coffee.Repositories;
+﻿using Coffee.Models.Entities;
+using Coffee.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Coffee.Models.Entities;
 using System.Security.Claims;
-using Coffee.Models;
-using SQLitePCL;
-using System.Security.Cryptography.Xml;
-
 namespace Coffee.Controllers
 {
     [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private NewsRepository _newsRepository;
+        private DataRepository _dataRepository;
 
-        public AdminController(NewsRepository newsRepository)
+        public AdminController(NewsRepository newsRepository, DataRepository dataRepository)
         {
             _newsRepository = newsRepository;
+            _dataRepository = dataRepository;
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
             bool isAdmin = User.IsInRole("Administrator");
 
             return View();
         }
 
-        public IActionResult Users()
+        public async Task<IActionResult> Users()
         {
-            var listUsers = new List<string>();
+            var list = await _dataRepository.GetUsersAsync();
 
-            return View(listUsers);
+            return View(list);
         }
 
-        public async Task<IActionResult> News()
+        public async Task<ActionResult> News()
         {
             var listNews = await _newsRepository.GetNewsAsync();
 
@@ -77,7 +76,7 @@ namespace Coffee.Controllers
         [HttpPost]
         public async Task<ActionResult> DoneEditNews(News news)
         {
-            
+
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
