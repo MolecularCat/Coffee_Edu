@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity;
+@{
     ViewData["Title"] = "Users list";
 }
 
@@ -10,6 +11,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Registration date</th>
+            <th>Lockout End</th>
             <th></th>
             <th></th>
         </tr>
@@ -19,9 +21,10 @@
                 <td>@item.UserName</td>
                 <td>@item.Email</td>
                 <td>@item.Created.ToString("dd.MM.yyyy HH:mm")</td>
-                <td><a href="">block</a></td>
-                <td><a href="">unblock</a></td>
+                <td>@item.LockoutEnd?.ToString("dd.MM.yyyy HH:mm")</td>
+                <td><a href="/admin/users/block/@item.Id">block</a></td>
+                <td><a href="/admin/users/unblock/@item.Id">unblock</a></td>
             </tr>
         }
-    </table>
+        </table>
 </div>
