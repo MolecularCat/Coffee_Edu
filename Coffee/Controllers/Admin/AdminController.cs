@@ -31,6 +31,22 @@ namespace Coffee.Controllers
             return View(list);
         }
 
+        [Route("/admin/users/block/{userId}")]
+        public async Task<IActionResult> BlockUser(string userId)
+        {
+            await _dataRepository.BlockUserAsync(userId);
+
+            return Redirect("/Admin/Users");
+        }
+
+        [Route("/admin/users/unblock/{userId}")]
+        public async Task<IActionResult> UnlockUser(string userId)
+        {
+            await _dataRepository.UnblockUserAsync(userId);
+
+            return Redirect("/Admin/Users");
+        }
+
         public async Task<ActionResult> News()
         {
             var listNews = await _newsRepository.GetNewsAsync();
@@ -76,8 +92,6 @@ namespace Coffee.Controllers
         [HttpPost]
         public async Task<ActionResult> DoneEditNews(News news)
         {
-
-
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             news.AuthorId = userId;
